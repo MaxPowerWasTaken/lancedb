@@ -1012,6 +1012,12 @@ class Table(ABC):
             The names of the columns to drop.
         """
 
+    @abstractmethod
+    def list_versions(self): 
+        """
+        List all the table versions.
+        """
+
     @cached_property
     def _dataset_uri(self) -> str:
         return _table_uri(self._conn.uri, self.name)
@@ -1189,6 +1195,7 @@ class LanceTable(Table):
 
     def list_versions(self):
         """List all versions of the table"""
+        print("doing it!!")
         return self._dataset.versions()
 
     @property
@@ -2901,6 +2908,12 @@ class AsyncTable:
         version.
         """
         return await self._inner.version()
+
+    async def list_versions(self):
+        """
+        TODO comments
+        """
+        return await self._inner.list_versions()
 
     async def checkout(self, version):
         """
