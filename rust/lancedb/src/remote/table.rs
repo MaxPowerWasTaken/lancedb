@@ -19,7 +19,7 @@ use http::header::CONTENT_TYPE;
 use http::StatusCode;
 use lance::arrow::json::JsonSchema;
 use lance::dataset::scanner::DatasetRecordBatchStream;
-use lance::dataset::{ColumnAlteration, NewColumnTransform};
+use lance::dataset::{ColumnAlteration, NewColumnTransform, Version};
 use lance_datafusion::exec::OneShotExec;
 use serde::{Deserialize, Serialize};
 
@@ -310,6 +310,13 @@ impl<S: HttpSend> TableInternal for RemoteTable<S> {
     async fn restore(&self) -> Result<()> {
         Err(Error::NotSupported {
             message: "restore is not supported on LanceDB cloud.".into(),
+        })
+    }
+
+    async fn list_versions(&self) -> Result<Vec<Version>> {
+        // TODO actually we should support this ...
+        Err(Error::NotSupported {
+            message: "list_versions is not supported on LanceDB cloud.".into(),
         })
     }
     async fn schema(&self) -> Result<SchemaRef> {
