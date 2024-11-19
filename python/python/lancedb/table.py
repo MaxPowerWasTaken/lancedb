@@ -1013,7 +1013,7 @@ class Table(ABC):
         """
 
     @abstractmethod
-    def list_versions(self): 
+    def list_versions(self):
         """List all versions of the table"""
 
     @cached_property
